@@ -1,0 +1,2 @@
+source_up
+export SESSION_COOKIE="session=<copy valid session cookie from browser>"
