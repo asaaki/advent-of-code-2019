@@ -44,7 +44,7 @@ single-day:
 	echo "************************"
 	echo "AoC $(DAY_NAME)"
 	cargo fmt
-	# cargo +nightly fix -Z unstable-options --clippy
+	cargo +nightly fix -Z unstable-options --clippy --allow-dirty
 	cargo check
 	cargo test -- --nocapture
 	cargo build --release
