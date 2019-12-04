@@ -16,9 +16,9 @@ struct Passphrase {
 type Passphrases = Vec<Passphrase>;
 
 fn main() -> std::io::Result<()> {
-    let clap_app = App::new("AoC day 3")
+    let clap_app = App::new("AoC day 4")
         .version("1.0")
-        .about("Find the distance")
+        .about("Count the passwords")
         .author("@asaaki")
         .arg(
             Arg::with_name("INPUT")
