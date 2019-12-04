@@ -9,9 +9,9 @@ static PART1_NOUN_VERB: (usize, usize) = (12, 2);
 static PART2_ANSWER: usize = 19690720;
 
 fn main() -> std::io::Result<()> {
-    let clap_app = App::new("AoC day 1")
+    let clap_app = App::new("AoC day 2")
         .version("1.0")
-        .about("Calculates needed fuel")
+        .about("Fix the computer")
         .author("@asaaki")
         .arg(
             Arg::with_name("INPUT")
