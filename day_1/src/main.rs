@@ -28,12 +28,10 @@ fn main() -> std::io::Result<()> {
 
 fn read_masses(file: File) -> Vec<i64> {
     let reader = BufReader::new(file);
-    let mut masses: Vec<i64> = Vec::new();
-    for line in reader.lines() {
-        let mass = line.unwrap().parse().unwrap();
-        masses.push(mass);
-    }
-    masses
+    reader
+        .lines()
+        .map(|l| l.unwrap().parse().unwrap())
+        .collect()
 }
 
 fn calculate_fuel<F>(masses: Vec<i64>, mapper: F) -> i64
@@ -64,7 +62,8 @@ fn recursive_mass2fuel(mass: i64) -> i64 {
 
 // TODO: build it!
 // part2: non-recursive approach
-fn iter_mass2fuel(mass: i64) -> i64 {
+#[allow(dead_code)]
+fn iter_mass2fuel(_mass: i64) -> i64 {
     // ...
     // let mut fuel = mass2fuel(mass);
     // let mut fueladder = unfold(mass, |item| {
