@@ -1,7 +1,6 @@
 // https://adventofcode.com/2019/day/1
 
 use clap::{App, Arg};
-// use itertools::unfold;
 use std::fs;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
@@ -84,21 +83,21 @@ mod tests {
     // part1: 100756 -> 33583
     #[test]
     fn test_part1_with_known_values() {
-        let input = vec![100756];
+        let input = vec![100_756];
         assert_eq!(calculate_fuel(input, mass2fuel), 33583);
     }
 
     // part2: 100756 -> 50346
     #[test]
     fn test_part2_with_known_values_recursive() {
-        let input = vec![100756];
+        let input = vec![100_756];
         assert_eq!(calculate_fuel(input, recursive_mass2fuel), 50346);
     }
 
     // part2 with iteration/loop
     #[test]
     fn test_part2_with_known_values_iterative() {
-        let input = vec![100756];
+        let input = vec![100_756];
         assert_eq!(calculate_fuel(input, iter_mass2fuel), 50346);
     }
 }

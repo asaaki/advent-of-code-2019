@@ -6,7 +6,7 @@ use std::fs::File;
 use std::io::Read;
 
 static PART1_NOUN_VERB: (usize, usize) = (12, 2);
-static PART2_ANSWER: usize = 19690720;
+static PART2_ANSWER: usize = 19_690_720;
 
 fn main() -> std::io::Result<()> {
     let clap_app = App::new("AoC day 2")
@@ -66,7 +66,7 @@ fn run_program(opcodes: Vec<usize>) -> Vec<usize> {
     let mut prog = Prog {
         done: false,
         pc: 0,
-        opcodes: opcodes,
+        opcodes,
     };
     prog = prog.execute();
     prog.opcodes
@@ -91,7 +91,7 @@ impl Prog {
                         self.opcodes[self.pc + 3],
                     );
                     self.opcodes[out] = self.opcodes[in1] + self.opcodes[in2];
-                    self.pc = self.pc + 4;
+                    self.pc += 4;
                 }
                 2 => {
                     let (in1, in2, out) = (
@@ -100,7 +100,7 @@ impl Prog {
                         self.opcodes[self.pc + 3],
                     );
                     self.opcodes[out] = self.opcodes[in1] * self.opcodes[in2];
-                    self.pc = self.pc + 4;
+                    self.pc += 4;
                 }
                 99 => self.done = true,
                 op => panic!("Invalid opcode detected: {} @ pos {}", op, self.pc),
