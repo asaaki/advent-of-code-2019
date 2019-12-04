@@ -1,4 +1,4 @@
-# [https://adventofcode.com/2019](advent-of-code-2019)
+# [Advent of Code 2019](https://adventofcode.com/2019)
 
 Some Rust here.
 Most likely not very idiomatic, safe, and performant.
