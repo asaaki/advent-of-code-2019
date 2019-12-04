@@ -189,7 +189,11 @@ fn calculate_intersections(horizontals: Segments, verticals: Segments) -> Inters
 
 // well, we cannot do range lookups if it is decreasing ...
 fn route(a: Coord, b: Coord) -> std::ops::RangeInclusive<Coord> {
-    if a > b { b..=a } else { a..=b }
+    if a > b {
+        b..=a
+    } else {
+        a..=b
+    }
 }
 
 fn collect_intersections_from_lines(wire1: Line, wire2: Line) -> Intersections {
@@ -226,9 +230,9 @@ fn get_shortest_distance(wire1: Line, wire2: Line) -> Option<Distance> {
 fn collect_steps(intersections: Intersections) -> Vec<Steps> {
     let mut steps: Vec<Steps> = intersections
         .iter()
-        .map(|inter| (inter.point.x.abs() + inter.point.y.abs(), inter.cost) )
-        .filter(|(d,_)| d.is_positive())
-        .map(|(_,v)| v)
+        .map(|inter| (inter.point.x.abs() + inter.point.y.abs(), inter.cost))
+        .filter(|(d, _)| d.is_positive())
+        .map(|(_, v)| v)
         .collect();
     steps.sort();
     steps
