@@ -45,7 +45,7 @@ single-day:
 	echo "AoC $(DAY_NAME)"
 	cargo fmt
 	cargo check
-	cargo test
+	cargo test -- --nocapture
 	cargo build --release
 	echo
 	../target/release/$(DAY_NAME) input/data.txt
