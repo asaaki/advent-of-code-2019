@@ -72,21 +72,6 @@ fn run_program(opcodes: Vec<usize>) -> Vec<usize> {
     prog.opcodes
 }
 
-enum Opcode {
-    Add,
-    Mult,
-    End,
-}
-
-fn i2o(int: usize) -> Opcode {
-    match int {
-        1 => Opcode::Add,
-        2 => Opcode::Mult,
-        99 => Opcode::End,
-        _ => panic!("invalid opcode detected"),
-    }
-}
-
 #[derive(Debug, Clone)]
 struct Prog {
     pub done: bool,
@@ -96,24 +81,29 @@ struct Prog {
 
 impl Prog {
     fn execute(mut self) -> Self {
-        use Opcode::*;
         while !self.done {
-            match i2o(self.opcodes[self.pc]) {
-                Add => {
-                    let in1 = self.opcodes[self.pc + 1];
-                    let in2 = self.opcodes[self.pc + 2];
-                    let out = self.opcodes[self.pc + 3];
+            // usually an "int to opcode" mapping is used, but let's keep it simple for now
+            match self.opcodes[self.pc] {
+                1 => {
+                    let (in1, in2, out) = (
+                        self.opcodes[self.pc + 1],
+                        self.opcodes[self.pc + 2],
+                        self.opcodes[self.pc + 3],
+                    );
                     self.opcodes[out] = self.opcodes[in1] + self.opcodes[in2];
                     self.pc = self.pc + 4;
                 }
-                Mult => {
-                    let in1 = self.opcodes[self.pc + 1];
-                    let in2 = self.opcodes[self.pc + 2];
-                    let out = self.opcodes[self.pc + 3];
+                2 => {
+                    let (in1, in2, out) = (
+                        self.opcodes[self.pc + 1],
+                        self.opcodes[self.pc + 2],
+                        self.opcodes[self.pc + 3],
+                    );
                     self.opcodes[out] = self.opcodes[in1] * self.opcodes[in2];
                     self.pc = self.pc + 4;
                 }
-                End => self.done = true,
+                99 => self.done = true,
+                op => panic!("Invalid opcode detected: {} @ pos {}", op, self.pc),
             }
         }
         self
