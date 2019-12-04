@@ -109,10 +109,10 @@ fn parse_line_string(line_string: String) -> LineOps {
             let (direction, length_value) = s.split_at(1);
             let length_abs: Coord = length_value.parse().unwrap();
             match direction {
-                "L" => (length_abs * -1, Horizontal),
-                "R" => (length_abs * 1, Horizontal),
-                "U" => (length_abs * 1, Vertical),
-                "D" => (length_abs * -1, Vertical),
+                "L" => (-length_abs, Horizontal),
+                "R" => (length_abs, Horizontal),
+                "U" => (length_abs, Vertical),
+                "D" => (-length_abs, Vertical),
                 d => panic!("Invalid direction encountered: {}", d),
             }
         })
@@ -128,20 +128,20 @@ fn calculate_line(start: Point, line_ops: LineOps) -> Line {
     for (pos, (coord, orientation)) in line_ops.iter().enumerate() {
         let point = match orientation {
             Horizontal => Point {
-                x: next_point.x.clone() + coord,
-                y: next_point.y.clone(),
+                x: next_point.x + coord,
+                y: next_point.y,
             },
             Vertical => Point {
-                x: next_point.x.clone(),
-                y: next_point.y.clone() + coord,
+                x: next_point.x,
+                y: next_point.y + coord,
             },
         };
         let segment = Segment {
             p1: next_point,
             p2: point.clone(),
-            last_steps: last_steps.clone(),
+            last_steps,
         };
-        next_point = point.clone();
+        next_point = point;
         last_steps += coord.abs();
         line.segments.push(segment);
         match orientation {
@@ -218,7 +218,7 @@ fn get_shortest_distance(wire1: Line, wire2: Line) -> Option<Distance> {
     let intersections = collect_intersections_from_lines(wire1, wire2);
     let distances = collect_distances(intersections);
     match distances.first() {
-        Some(v) => Some(v.clone()),
+        Some(v) => Some(*v),
         None => None,
     }
 }
@@ -238,7 +238,7 @@ fn get_shortest_steps(wire1: Line, wire2: Line) -> Option<Distance> {
     let intersections = collect_intersections_from_lines(wire1, wire2);
     let steps = collect_steps(intersections);
     match steps.first() {
-        Some(v) => Some(v.clone()),
+        Some(v) => Some(*v),
         None => None,
     }
 }
@@ -246,11 +246,6 @@ fn get_shortest_steps(wire1: Line, wire2: Line) -> Option<Distance> {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn test_tbd() {
-        assert!(true);
-    }
 
     #[test]
     fn test_part1_example0() {
