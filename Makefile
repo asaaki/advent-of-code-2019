@@ -69,8 +69,10 @@ new:
 			-o input/data.txt
 
 cargo-utils:
-	-cargo install cargo-edit
+	-cargo install --git https://github.com/hhatto/cargo-strict.git
 	-cargo install --git https://github.com/kbknapp/cargo-outdated
 	-cargo install cargo-cache
-	-cargo install cargo-modules
 	-cargo install cargo-deps
+	-cargo install cargo-edit
+	-cargo install cargo-modules
+	-cargo install cargo-update
